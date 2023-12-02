@@ -64,10 +64,10 @@ def test_solve_part1():
     assert solve_part1(test_gameset) == 8
 
 def solve_part1(gamedata):
-    possible_games = []
+    possible_sum = 0
     for game in gamedata:
-        possible_games.append(possible(game, part1_limits))
-    return sum(possible_games)
+        possible_sum += possible(game, part1_limits)
+    return possible_sum
 
 part1 = solve_part1(day2_input)
 print('Part 1:', part1)
