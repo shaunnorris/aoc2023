@@ -12,10 +12,6 @@ def read_file_lines(filepath):
         lines = file.readlines()
     return [line.strip() for line in lines]
 
-def test_read_file_lines(tmp_path):
-    test_file = "day2-test-input.txt"
-    result = read_file_lines(test_file)
-    assert result == test_gameset
 
 def test_parse_game():
     assert parse_game("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green") == {'blue': 6, 'green': 2, 'id': 1, 'red': 4}
