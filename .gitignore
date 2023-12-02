@@ -1,2 +1,3 @@
 aocenv/
 *.txt
+__pycache__/
