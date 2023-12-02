@@ -1,24 +1,5 @@
 import pytest
-import os
-
-
-def read_file_lines(filepath):
-    with open(filepath, 'r') as file:
-        lines = file.readlines()
-    return [line.strip() for line in lines]
-
-def test_read_file_lines(tmp_path):
-    # Create a temporary file and write some content to it
-    test_file = tmp_path / "test_file.txt"
-    with open(test_file, 'w') as f:
-        f.write("Line 1\nLine 2\nLine 3")
-
-    # Use the function to read the file's content
-    result = read_file_lines(test_file)
-
-    # Assert that the result is a list of lines as expected
-    assert result == ["Line 1", "Line 2", "Line 3"]
- 
+from aoc2023 import read_file_lines
 
 def test_extract_digits():
     assert extract_digits("1abc2") == (12)
@@ -149,12 +130,9 @@ def test_solve_part2():
 
 
 input_file = 'day1-input.txt'
-
-if os.path.exists(input_file):
-    input = read_file_lines(input_file)
+input = read_file_lines(input_file)
+if input:
     part1 = solve_part1(input)
     print("Part 1:", part1)
     part2 = solve_part2(input)
     print("Part 2:", part2)
-else:
-    print("no input file found")
