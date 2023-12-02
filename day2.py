@@ -1,4 +1,4 @@
-import pytest
+from aoc2023 import read_file_lines
 import re
 
 test_gameset =['Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green', 
@@ -6,11 +6,6 @@ test_gameset =['Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green',
                'Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red', 
                'Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red', 
                'Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green']
-
-def read_file_lines(filepath):
-    with open(filepath, 'r') as file:
-        lines = file.readlines()
-    return [line.strip() for line in lines]
 
 
 def test_parse_game():
@@ -53,8 +48,7 @@ def possible(game_string, possible_limits):
                 return 0
     return game_cubes['id']
 
-day2_input = read_file_lines("day2-input.txt")
-part1_limits = {'blue': 14, 'green': 13, 'red': 12}
+
 
 def test_solve_part1():
     assert solve_part1(test_gameset) == 8
@@ -65,9 +59,7 @@ def solve_part1(gamedata):
         possible_sum += possible(game, part1_limits)
     return possible_sum
 
-part1 = solve_part1(day2_input)
-print('Part 1:', part1)
-    
+
 
 def test_find_power():
     assert find_power(test_gameset[0]) == 48
@@ -90,5 +82,10 @@ def solve_part2(gamedata):
         total_power += find_power(game)
     return total_power
 
-part2 = solve_part2(day2_input)
-print('part 2:', part2)
+day2_input = read_file_lines("day2-input.txt")
+part1_limits = {'blue': 14, 'green': 13, 'red': 12}
+if day2_input:
+    part1 = solve_part1(day2_input)
+    print('Part 1:', part1)
+    part2 = solve_part2(day2_input)
+    print('part 2:', part2)
