@@ -1,4 +1,6 @@
 import pytest
+import os
+
 
 def read_file_lines(filepath):
     with open(filepath, 'r') as file:
@@ -144,12 +146,15 @@ def test_solve_part2():
                         "7pqrstsixteen"
                         ]) == 281
 
-                     
-input = read_file_lines("day1-input.txt")
-part1 = solve_part1(input)
-print("Part 1:", part1)
 
 
-part2 = solve_part2(input)
-print("Part 2:", part2)
+input_file = 'day1-input.txt'
 
+if os.path.exists(input_file):
+    input = read_file_lines(input_file)
+    part1 = solve_part1(input)
+    print("Part 1:", part1)
+    part2 = solve_part2(input)
+    print("Part 2:", part2)
+else:
+    print("no input file found")
