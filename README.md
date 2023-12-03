@@ -23,3 +23,11 @@
 - basic strategy was parse each game into a dictionary, with a key for id, and each colour
 - from there, two functions then can take a game string line, and find whether its possible or not, or compute its power from part2
 - mostly tedious in setting up tests cases, but choices of data structure etc. were fairly straightforward
+
+## Day3
+- slow going, this time due to some subtle errors 
+- overall approach is not very optimised, lots of room for improvement
+- parse data, find numbers, store a list of values, and the starting coordinate of each number, also store a separate list of every non. symbol encountered with its coordinates
+- for each number in our number list, check all adjacent values for a symbol (against the symbol list with coords) (wildly inefficient, as it checks every symbol against every number, but it works through brute force)
+- variation on this for part2, create a dict of * symbols, add to a list with the value of an adjacent number when found, look for all lists that are length2, and get product / sum etc. was fairly simple
+- nothing terribly difficult, just kept making subtle errors and eventually had to fix test data and double-check coords by hand of test data which solved
