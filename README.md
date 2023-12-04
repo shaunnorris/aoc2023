@@ -31,4 +31,8 @@
 - for each number in our number list, check all adjacent values for a symbol (against the symbol list with coords) (wildly inefficient, as it checks every symbol against every number, but it works through brute force)
 - variation on this for part2, create a dict of * symbols, add to a list with the value of an adjacent number when found, look for all lists that are length2, and get product / sum etc. was fairly simple
 - nothing terribly difficult, just kept making subtle errors and eventually had to fix test data and double-check coords by hand of test data which solved
---
+
+##Day4
+- easier today, a few minor issues with spacing etc. and removing multiple spaces
+- let me play wtih sets / intersection which was easier way to find matches between lists
+- part2 was tricky at first but breaking down wasn't that hard in the end
