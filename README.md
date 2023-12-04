@@ -32,7 +32,7 @@
 - variation on this for part2, create a dict of * symbols, add to a list with the value of an adjacent number when found, look for all lists that are length2, and get product / sum etc. was fairly simple
 - nothing terribly difficult, just kept making subtle errors and eventually had to fix test data and double-check coords by hand of test data which solved
 
-##Day4
+## Day4
 - easier today, a few minor issues with spacing etc. and removing multiple spaces
 - let me play wtih sets / intersection which was easier way to find matches between lists
 - part2 was tricky at first but breaking down wasn't that hard in the end
