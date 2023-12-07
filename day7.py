@@ -62,13 +62,17 @@ def test_get_card_value():
     assert get_card_value("K") == 13
     assert get_card_value("Q") == 12
     assert get_card_value("J") == 11    
+    assert get_card_value("J",2) == 1 
     assert get_card_value("T") == 10
     assert get_card_value("9") == 9
     assert get_card_value("8") == 8
     assert get_card_value("2") == 2
     
-def get_card_value(card):
-    letter_values = {"A": 14, "K": 13, "Q": 12, "J": 11, "T": 10}
+def get_card_value(card,part2=False):
+    if part2:
+        letter_values = {"A": 14, "K": 13, "Q": 12, "J": 1, "T": 10}
+    else: 
+        letter_values = {"A": 14, "K": 13, "Q": 12, "J": 11, "T": 10}
     if card.isdigit():
         return int(card)
     else:
@@ -81,21 +85,27 @@ def test_compare_hands():
     assert compare_hands("1234A","12345") == ("1234A")
     assert compare_hands("33322","AAAKK") == ("AAAKK")
     assert compare_hands("AKAKA","1K1K1") == ("AKAKA")
+    assert compare_hands("T55J5","KTJJT",True) == ("KTJJT")
+    assert compare_hands("QQQJA","KTJJT",True) == ("KTJJT")
+    assert compare_hands("QQQJA","T55J5",True) == ("QQQJA")
+    assert compare_hands("JQQQQ","TQQQQ",True) == ("JQQQQ")
     
-def compare_hands(hand1, hand2):
-    #compare hands and return the winning hand
-    #if hands are equal, return None
-    #if hand1 is better, return hand1
-    #if hand2 is better, return hand2
-    t1 = find_type(hand1)
-    t2 = find_type(hand2)
+def compare_hands(hand1, hand2, part2=False):
+    if part2:
+        t1 = find_type(joker_equivalent(hand1))
+        t2 = find_type(joker_equivalent(hand2))
+    else:
+        t1 = find_type(hand1)
+        t2 = find_type(hand2)
+    print(hand1,hand2,t1,t2)
     if t1 > t2:
         return hand1
     elif t1 == t2:
         equal_value = True
         for i in range(0,5):
-            c1 = get_card_value(hand1[i])
-            c2 = get_card_value(hand2[i])
+            c1 = get_card_value(hand1[i],part2)
+            c2 = get_card_value(hand2[i],part2)
+            print('c1,c2',hand1[i],hand2[i],c1,c2,hand1,hand2)
             if c1 > c2:
                 return hand1
             elif c2 > c1:
@@ -110,17 +120,19 @@ def test_sort_cards():
                                      {'hand': 'KK677', 'bid': 28, 'rank': 3}, 
                                      {'hand': 'T55J5', 'bid': 684, 'rank': 4}, 
                                      {'hand': 'QQQJA', 'bid': 483, 'rank': 5}]
-    
-def sort_cards(hands):
-    print(hands)
+    assert sort_cards(testhands,True) == [{'hand': '32T3K', 'bid': 765, 'rank': 1}, 
+                                          {'hand': 'KK677', 'bid': 28, 'rank': 2}, 
+                                          {'hand': 'T55J5', 'bid': 684, 'rank': 3}, 
+                                          {'hand': 'QQQJA', 'bid': 483, 'rank': 4}, 
+                                          {'hand': 'KTJJT', 'bid': 220, 'rank': 5}]
+     
+def sort_cards(hands,part2=False):
     for a in range(0,len(hands)):
-        print(hands[a]['hand'])
         for b in range(a+1,len(hands)):
-            if compare_hands(hands[a]['hand'],hands[b]['hand']) == hands[a]['hand']:
+            if compare_hands(hands[a]['hand'],hands[b]['hand'],part2) == hands[a]['hand']:
                 hands[a], hands[b] = hands[b], hands[a]
     for i in range(0,len(hands)):
         hands[i]['rank'] = i+1  
-    print('sorted',hands)
     return hands
 
 def test_winnings():
@@ -133,7 +145,51 @@ def winnings(hands):
         winnings += hand['bid'] * hand['rank']
     return winnings
 
+
+    
+def test_joker_equivalent():
+    assert joker_equivalent('QQQJA') == 'QQQQA'
+    assert joker_equivalent('QQJKK') == 'QQKKK'
+    assert joker_equivalent('1233J') == '12333'
+    assert joker_equivalent('1234J') == '12344'
+    assert joker_equivalent('JJJJJ') == 'AAAAA'
+        
+def joker_equivalent(hand):
+    if hand == 'JJJJJ':
+        return 'AAAAA'
+    unique = set(hand)
+    counts = {}
+    for card in unique:
+        counts[card] = hand.count(card)
+    jcount = counts.pop('J', None)
+    if len(counts.values()) == len(set(counts.values())):
+        dupes = False
+    else:
+        dupes = True
+
+    best_value = 0
+    if dupes: 
+        for letter in counts:
+            letter_value = get_card_value(letter)
+            if letter_value > best_value:
+                best_letter = letter
+                best_value = letter_value
+    else:
+        best_letter = max(counts) 
+    if jcount:
+        newhand = hand.replace('J',best_letter)
+        return newhand
+    return hand
+
+
 input = read_file_lines('day7-input.txt')
 if input:
+    
+    """
     part1 = winnings(sort_cards(parse(input)))
     print('part1',part1)
+    
+    
+    part2 = winnings(sort_cards(parse(input),True))
+    print('part2',part2)
+    """
