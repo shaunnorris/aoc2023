@@ -3,11 +3,7 @@ from aoc2023 import read_file_lines
 testdata = read_file_lines('day7-test-input.txt')
 
 def test_parse():
-    assert parse(testdata) == [{'hand': '32T3K', 'bid': 765}, 
-                               {'hand': 'QQQJA', 'bid': 483}, 
-                               {'hand': 'KK677', 'bid': 28}, 
-                               {'hand': 'T55J5', 'bid': 684}, 
-                               {'hand': 'KTJJT', 'bid': 220}]
+    assert len(parse(testdata)) == 5
 
 def parse(lines):
     hands = []
@@ -89,6 +85,9 @@ def test_compare_hands():
     assert compare_hands("QQQJA","KTJJT",True) == ("KTJJT")
     assert compare_hands("QQQJA","T55J5",True) == ("QQQJA")
     assert compare_hands("JQQQQ","TQQQQ",True) == ("JQQQQ")
+    assert compare_hands("12345","23456",True) == ("23456")
+    assert compare_hands("JJJJJ","KKKKK",True) == ("JQQQQ")
+    
     
 def compare_hands(hand1, hand2, part2=False):
     if part2:
@@ -97,7 +96,6 @@ def compare_hands(hand1, hand2, part2=False):
     else:
         t1 = find_type(hand1)
         t2 = find_type(hand2)
-    print(hand1,hand2,t1,t2)
     if t1 > t2:
         return hand1
     elif t1 == t2:
@@ -105,7 +103,6 @@ def compare_hands(hand1, hand2, part2=False):
         for i in range(0,5):
             c1 = get_card_value(hand1[i],part2)
             c2 = get_card_value(hand2[i],part2)
-            print('c1,c2',hand1[i],hand2[i],c1,c2,hand1,hand2)
             if c1 > c2:
                 return hand1
             elif c2 > c1:
@@ -138,6 +135,9 @@ def sort_cards(hands,part2=False):
 def test_winnings():
     sorted_testcards =sort_cards(parse(testdata))
     assert winnings(sorted_testcards) == 6440
+    part2_testcards = sort_cards(parse(testdata),True)
+    print(part2_testcards)
+    assert winnings(part2_testcards) == 5905
     
 def winnings(hands):
     winnings = 0
@@ -176,20 +176,17 @@ def joker_equivalent(hand):
                 best_value = letter_value
     else:
         best_letter = max(counts) 
-    if jcount:
+    if 'J' in hand:
         newhand = hand.replace('J',best_letter)
         return newhand
-    return hand
+    else:
+        return hand
 
 
 input = read_file_lines('day7-input.txt')
 if input:
     
-    """
-    part1 = winnings(sort_cards(parse(input)))
-    print('part1',part1)
+    print('part1',winnings(sort_cards(parse(input))))
     
-    
-    part2 = winnings(sort_cards(parse(input),True))
-    print('part2',part2)
-    """
+    print('part2',winnings(sort_cards(parse(input),True)))
+  

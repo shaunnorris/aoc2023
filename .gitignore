@@ -1,6 +1,7 @@
 #my unique settings go here
 aocenv/
 *input.txt
+*ext.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
