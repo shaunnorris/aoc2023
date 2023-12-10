@@ -1,7 +1,7 @@
 #my unique settings go here
 aocenv/
 *input.txt
-test*.txt
+*test*.txt
 *ext.py
 
 # Byte-compiled / optimized / DLL files
