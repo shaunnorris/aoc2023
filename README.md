@@ -57,6 +57,9 @@
 - GPT was essential on this one to help with syntax of math.lcm function etc. 
 
 ##Day9
+- a really fun one, used a 'pyramid' data structure with a dict to store the reduced lists. 
+- this let me do things like max(pyramid) to get the number of levels etc. 
+- overall fun, straightforward and didn't require a lot of math
 
 ##Day10
 

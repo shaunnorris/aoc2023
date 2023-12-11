@@ -1,10 +1,11 @@
 from aoc2023 import read_file_lines
 
-testdata = read_file_lines("day9-test-input.txt")
+testdata = read_file_lines("./input/day9-test-input.txt")
 
 
 def test_parse():
-    assert parse(testdata) == [[0, 3, 6, 9, 12, 15], [1, 3, 6, 10, 15, 21], [10, 13, 16, 21, 30, 45]]
+    if testdata:
+        assert parse(testdata) == [[0, 3, 6, 9, 12, 15], [1, 3, 6, 10, 15, 21], [10, 13, 16, 21, 30, 45]]
     
 def parse(datalines):
     series = []
@@ -13,10 +14,11 @@ def parse(datalines):
     return series
 
 def test_pyramid():
-    assert pyramid(parse(testdata)[0]) == {0: [0, 3, 6, 9, 12, 15], 1: [3, 3, 3, 3, 3]} 
-    assert pyramid(parse(testdata)[1]) == {0: [1, 3, 6, 10, 15, 21], 1: [2, 3, 4, 5, 6], 2: [1, 1, 1, 1]}
-    assert pyramid(parse(testdata)[2]) == {0: [10, 13, 16, 21, 30, 45], 1: [3, 3, 5, 9, 15], 2: [0, 2, 4, 6], 3: [2, 2, 2]}
-    
+    if testdata:
+        assert pyramid(parse(testdata)[0]) == {0: [0, 3, 6, 9, 12, 15], 1: [3, 3, 3, 3, 3]} 
+        assert pyramid(parse(testdata)[1]) == {0: [1, 3, 6, 10, 15, 21], 1: [2, 3, 4, 5, 6], 2: [1, 1, 1, 1]}
+        assert pyramid(parse(testdata)[2]) == {0: [10, 13, 16, 21, 30, 45], 1: [3, 3, 5, 9, 15], 2: [0, 2, 4, 6], 3: [2, 2, 2]}
+        
 def pyramid(series):
     pyramid = {}
     pyramid[0] = series
@@ -35,10 +37,11 @@ def pyramid(series):
     return pyramid
     
 def test_solve():
-    assert solve(pyramid(parse(testdata)[0])) == 18
-    assert solve(pyramid(parse(testdata)[1])) == 28
-    assert solve(pyramid(parse(testdata)[2])) == 68
-    
+    if testdata:
+        assert solve(pyramid(parse(testdata)[0])) == 18
+        assert solve(pyramid(parse(testdata)[1])) == 28
+        assert solve(pyramid(parse(testdata)[2])) == 68
+        
 def solve(pyramid):
     levels = max(pyramid)
     for i in range(levels-1,-1,-1):
@@ -46,8 +49,9 @@ def solve(pyramid):
     return pyramid[0][-1]
 
 def test_solve_all():
-    assert solve_all(parse(testdata)) == 114
-    assert solve_all(parse(testdata),2) == 2
+    if testdata:
+        assert solve_all(parse(testdata)) == 114
+        assert solve_all(parse(testdata),2) == 2
 
 def solve_all(data,part=1):
     grand_total = 0
@@ -60,17 +64,18 @@ def solve_all(data,part=1):
 
    
 def test_solve_left():
-    assert solve_left(pyramid(parse(testdata)[0])) == -3
-    assert solve_left(pyramid(parse(testdata)[1])) == 0
-    assert solve_left(pyramid(parse(testdata)[2])) == 5
-    
+    if testdata:
+        assert solve_left(pyramid(parse(testdata)[0])) == -3
+        assert solve_left(pyramid(parse(testdata)[1])) == 0
+        assert solve_left(pyramid(parse(testdata)[2])) == 5
+        
 def solve_left(pyramid):
     levels = max(pyramid)
     for i in range(levels-1,-1,-1):
         pyramid[i].insert(0,pyramid[i][0] - pyramid[i+1][0])
     return pyramid[0][0]
 
-input = read_file_lines("day9-input.txt")
+input = read_file_lines("./input/day9-input.txt")
 if input:
     print('part1', solve_all(parse(input)))
     print('part2', solve_all(parse(input),2))
