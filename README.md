@@ -62,5 +62,13 @@
 - overall fun, straightforward and didn't require a lot of math
 
 ##Day10
+- lots of fun with this one
+- had to lookup the ray tracing algorithm in part2 (with GPT), once i had that, was fairly straightforward to write a function to check and position and determine if inside or outside the loop
+- takes a few seconds to run but works. could be optimized a lot further
 
 ##Day11
+- also really fun
+- typical AOC challenge where naive solution in part1 does not help in part2
+- resttarted with a substitution approach rather than just naively inserting empty rows
+- calculated new coords based on nubmer of X's found in slice vertically and horizontally
+- some 'off by one' fun but otherwise was nice puzzle

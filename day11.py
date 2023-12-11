@@ -20,14 +20,15 @@ def add_empty_rows(data):
 
 
 
-test_data = read_file_lines("day11-test-input.txt")
-test_data_expanded = read_file_lines("day11-test-expand.txt")
+test_data = read_file_lines("./input/day11-test-input.txt")
+test_data_expanded = read_file_lines("./input/day11-test-expand.txt")
 
 
 def test_expand():
     small_test_data = ["#...", "....", "..#.","...#"]
     assert expand(small_test_data) == ['#....', '.....', '.....', '...#.', '....#']
-    assert expand(test_data) == test_data_expanded
+    if test_data:
+        assert expand(test_data) == test_data_expanded
     
 def expand(data):
     expanded_rows = add_empty_rows(data)
@@ -44,7 +45,8 @@ def transpose(strings):
 def test_find_galaxies():
     small_test_data = ["#...", "....", "..#.","...#"]
     assert find_galaxies(expand(small_test_data)) == [(0,0), (3,3), (4,4)]  
-    assert find_galaxies(expand(test_data)) == [(0, 4), (1, 9), (2, 0), (5, 8), (6, 1), (7, 12), (10, 9), (11, 0), (11, 5)]  
+    if test_data:
+        assert find_galaxies(expand(test_data)) == [(0, 4), (1, 9), (2, 0), (5, 8), (6, 1), (7, 12), (10, 9), (11, 0), (11, 5)]  
   
 def find_galaxies(data):
     galaxies = []
@@ -58,8 +60,9 @@ def test_get_combinations():
     small_test_data = ["#...", "....", "..#.","...#"]
     small_test_galaxies = find_galaxies(expand(small_test_data))
     assert get_combinations(small_test_galaxies) == [((0, 0), (3, 3)), ((0, 0), (4, 4)), ((3, 3), (4, 4))]
-    test_galaxies = find_galaxies(expand(test_data))
-    assert len(get_combinations(test_galaxies)) == 36
+    if test_data:
+        test_galaxies = find_galaxies(expand(test_data))
+        assert len(get_combinations(test_galaxies)) == 36
     
 def get_combinations(galaxies):
     unique_combos = list(combinations(galaxies, 2))
@@ -72,8 +75,9 @@ def get_distance(galaxy1, galaxy2):
     return abs(galaxy1[0] - galaxy2[0]) + abs(galaxy1[1] - galaxy2[1]) 
 
 def test_get_all_distances():
-    test_galaxy_pairs = get_combinations(find_galaxies(expand(test_data)))
-    assert get_all_distances(test_galaxy_pairs) == 374
+    if test_data:
+        test_galaxy_pairs = get_combinations(find_galaxies(expand(test_data)))
+        assert get_all_distances(test_galaxy_pairs) == 374
     
 def get_all_distances(galaxy_pairs):
     galaxy_sum = 0
@@ -102,11 +106,8 @@ def expand2(data):
     return new_rows
 
 def test_galaxies2():
-    small_test_data = ["#...", "....", "..#.","...#"]
-    test_small = expand2(small_test_data)
-
-    #assert find_galaxies2(expand2(small_test_data)) == [(0,0), (3,3), (4,4)]  
-    assert find_galaxies2(expand2(test_data),1) == [(0, 4), (1, 9), (2, 0), (5, 8), (6, 1), (7, 12), (10, 9), (11, 0), (11, 5)]  
+    if test_data:
+        assert find_galaxies2(expand2(test_data),1) == [(0, 4), (1, 9), (2, 0), (5, 8), (6, 1), (7, 12), (10, 9), (11, 0), (11, 5)]  
   
 def find_galaxies2(data,offset):
     galaxies = []
@@ -122,14 +123,15 @@ def find_galaxies2(data,offset):
     return galaxies
 
 def test_count2():
-    test_part1 = find_galaxies2(expand2(test_data),1)
-    test10 = find_galaxies2(expand2(test_data),9)
-    test100 = find_galaxies2(expand2(test_data),99)
-    assert get_all_distances(get_combinations(test_part1)) == 374
-    assert get_all_distances(get_combinations(test10)) == 1030
-    assert get_all_distances(get_combinations(test100)) == 8410
+    if test_data:
+        test_part1 = find_galaxies2(expand2(test_data),1)
+        test10 = find_galaxies2(expand2(test_data),9)
+        test100 = find_galaxies2(expand2(test_data),99)
+        assert get_all_distances(get_combinations(test_part1)) == 374
+        assert get_all_distances(get_combinations(test10)) == 1030
+        assert get_all_distances(get_combinations(test100)) == 8410
 
-input = read_file_lines("day11-input.txt")
+input = read_file_lines("./input/day11-input.txt")
 if input:
     print('part1', get_all_distances(get_combinations(find_galaxies(expand(input)))))
     print('part2', get_all_distances(get_combinations(find_galaxies2(expand2(input),999999))))
