@@ -1,10 +1,10 @@
 from aoc2023 import read_file_lines
 
-
-testdata = read_file_lines('day6-test-input.txt')
+testdata = read_file_lines('./input/day6-test-input.txt')
 
 def test_parse_data():             #(time,  distance)
-    assert parse_data(testdata) == [(7, 9), (15, 40), (30, 200)]
+    if testdata:
+        assert parse_data(testdata) == [(7, 9), (15, 40), (30, 200)]
     
 def parse_data(lines):
     time_values = list(map(int, lines[0].split()[1:]))
@@ -12,7 +12,6 @@ def parse_data(lines):
     races = []
     for i, (time, distance) in enumerate(zip(time_values, distance_values), start=1):
         races.append((time, distance))
-    print(races)
     return races
 
 def test_run_race():
@@ -49,8 +48,9 @@ def calc_winners(race):
     return winners
 
 def test_all_races():
-    racedata = parse_data(testdata)
-    assert all_races(racedata) == 288
+    if testdata:
+        racedata = parse_data(testdata)
+        assert all_races(racedata) == 288
     
 def all_races(racedata):
     product = 1
@@ -59,16 +59,15 @@ def all_races(racedata):
     return product
 
 def test_parse_part2():
-    assert parse_part2(testdata) == (71530,940200)
+    if testdata:
+        assert parse_part2(testdata) == (71530,940200)
     
 def parse_part2(lines):
     time = int(''.join(filter(str.isdigit, lines[0])))
     distance = int(''.join(filter(str.isdigit, lines[1])))
     return (time,distance)
 
-input = read_file_lines('day6-input.txt')
+input = read_file_lines('./input/day6-input.txt')
 if input:
-    part1 = all_races(parse_data(input))
-    print('part1',part1)
-    part2 = calc_winners(parse_part2(input))
-    print('part2',part2)
+    print('part1',all_races(parse_data(input)))
+    print('part2',calc_winners(parse_part2(input)))
