@@ -53,7 +53,7 @@ def score_cards(carddata):
     return score
 
 def test_play_game():
-    testdata = read_file_lines("day4-test-input.txt")
+    testdata = read_file_lines("./input/day4-test-input.txt")
     if testdata:
         assert play_game(testdata) == 13        
 
@@ -64,7 +64,7 @@ def play_game(gamedata):
     return total_score
 
 def test_score2():
-    testdata = read_file_lines("day4-test-input.txt")
+    testdata = read_file_lines("./input/day4-test-input.txt")
     if testdata:
         assert score2(testdata) == 30
         
@@ -83,9 +83,9 @@ def score2(carddata):
                 tracker[i] += 1
     return sum(tracker.values())
 
-input = read_file_lines("day4-input.txt")
+input_dir = './input/'
+input_file = input_dir + 'day4-input.txt'
+input = read_file_lines(input_file)
 if input:
-    part1 = play_game(input)
-    print("part1", part1)
-    part2 = score2(input)
-    print("part2",part2)
+    print("part1", play_game(input))
+    print("part2",score2(input))
