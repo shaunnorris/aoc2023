@@ -69,6 +69,6 @@
 ## Day11
 - also really fun
 - typical AOC challenge where naive solution in part1 does not help in part2
-- resttarted with a substitution approach rather than just naively inserting empty rows
+- restarted with a substitution approach rather than just naively inserting empty rows
 - calculated new coords based on nubmer of X's found in slice vertically and horizontally
 - some 'off by one' fun but otherwise was nice puzzle
