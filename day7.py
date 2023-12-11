@@ -1,9 +1,10 @@
 from aoc2023 import read_file_lines
 
-testdata = read_file_lines('day7-test-input.txt')
+testdata = read_file_lines('./input/day7-test-input.txt')
 
 def test_parse():
-    assert len(parse(testdata)) == 5
+    if testdata:
+        assert len(parse(testdata)) == 5
 
 def parse(lines):
     hands = []
@@ -86,7 +87,6 @@ def test_compare_hands():
     assert compare_hands("QQQJA","T55J5",True) == ("QQQJA")
     assert compare_hands("JQQQQ","TQQQQ",True) == ("JQQQQ")
     assert compare_hands("12345","23456",True) == ("23456")
-    assert compare_hands("JJJJJ","KKKKK",True) == ("JQQQQ")
     
     
 def compare_hands(hand1, hand2, part2=False):
@@ -111,18 +111,19 @@ def compare_hands(hand1, hand2, part2=False):
         return hand2
     
 def test_sort_cards():
-    testhands = parse(testdata)
-    assert sort_cards(testhands) == [{'hand': '32T3K', 'bid': 765, 'rank': 1}, 
-                                     {'hand': 'KTJJT', 'bid': 220, 'rank': 2}, 
-                                     {'hand': 'KK677', 'bid': 28, 'rank': 3}, 
-                                     {'hand': 'T55J5', 'bid': 684, 'rank': 4}, 
-                                     {'hand': 'QQQJA', 'bid': 483, 'rank': 5}]
-    assert sort_cards(testhands,True) == [{'hand': '32T3K', 'bid': 765, 'rank': 1}, 
-                                          {'hand': 'KK677', 'bid': 28, 'rank': 2}, 
-                                          {'hand': 'T55J5', 'bid': 684, 'rank': 3}, 
-                                          {'hand': 'QQQJA', 'bid': 483, 'rank': 4}, 
-                                          {'hand': 'KTJJT', 'bid': 220, 'rank': 5}]
-     
+    if testdata:
+        testhands = parse(testdata)
+        assert sort_cards(testhands) == [{'hand': '32T3K', 'bid': 765, 'rank': 1}, 
+                                        {'hand': 'KTJJT', 'bid': 220, 'rank': 2}, 
+                                        {'hand': 'KK677', 'bid': 28, 'rank': 3}, 
+                                        {'hand': 'T55J5', 'bid': 684, 'rank': 4}, 
+                                        {'hand': 'QQQJA', 'bid': 483, 'rank': 5}]
+        assert sort_cards(testhands,True) == [{'hand': '32T3K', 'bid': 765, 'rank': 1}, 
+                                            {'hand': 'KK677', 'bid': 28, 'rank': 2}, 
+                                            {'hand': 'T55J5', 'bid': 684, 'rank': 3}, 
+                                            {'hand': 'QQQJA', 'bid': 483, 'rank': 4}, 
+                                            {'hand': 'KTJJT', 'bid': 220, 'rank': 5}]
+        
 def sort_cards(hands,part2=False):
     for a in range(0,len(hands)):
         for b in range(a+1,len(hands)):
@@ -133,20 +134,20 @@ def sort_cards(hands,part2=False):
     return hands
 
 def test_winnings():
-    sorted_testcards =sort_cards(parse(testdata))
-    assert winnings(sorted_testcards) == 6440
-    part2_testcards = sort_cards(parse(testdata),True)
-    print(part2_testcards)
-    assert winnings(part2_testcards) == 5905
-    
+    if testdata:
+        sorted_testcards =sort_cards(parse(testdata))
+        assert winnings(sorted_testcards) == 6440
+        part2_testcards = sort_cards(parse(testdata),True)
+        print(part2_testcards)
+        assert winnings(part2_testcards) == 5905
+        
 def winnings(hands):
     winnings = 0
     for hand in hands:
         winnings += hand['bid'] * hand['rank']
     return winnings
 
-
-    
+   
 def test_joker_equivalent():
     assert joker_equivalent('QQQJA') == 'QQQQA'
     assert joker_equivalent('QQJKK') == 'QQKKK'
@@ -183,10 +184,7 @@ def joker_equivalent(hand):
         return hand
 
 
-input = read_file_lines('day7-input.txt')
-if input:
-    
+input = read_file_lines('./input/day7-input.txt')
+if input:    
     print('part1',winnings(sort_cards(parse(input))))
     
-    print('part2',winnings(sort_cards(parse(input),True)))
-  

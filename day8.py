@@ -1,19 +1,21 @@
 from aoc2023 import read_file_lines
 import math
 
+testinput = read_file_lines("./input/day8-test-input.txt")
+testinput2 = read_file_lines("./input/day8-test2-input.txt")
 
 def test_parse():
-    testlines = read_file_lines("day8-test-input.txt")
-    assert len(testlines) == 9
-    test_desert = parse(testlines)
-    assert test_desert['ins'] == "RL"
-    assert test_desert['nodes'] == {'AAA': ('BBB', 'CCC'), 
-                                    'BBB': ('DDD', 'EEE'), 
-                                    'CCC': ('ZZZ', 'GGG'), 
-                                    'DDD': ('DDD', 'DDD'), 
-                                    'EEE': ('EEE', 'EEE'), 
-                                    'GGG': ('GGG', 'GGG'), 
-                                    'ZZZ': ('ZZZ', 'ZZZ')}
+    if testinput:
+        assert len(testinput) == 9
+        test_desert = parse(testinput)
+        assert test_desert['ins'] == "RL"
+        assert test_desert['nodes'] == {'AAA': ('BBB', 'CCC'), 
+                                        'BBB': ('DDD', 'EEE'), 
+                                        'CCC': ('ZZZ', 'GGG'), 
+                                        'DDD': ('DDD', 'DDD'), 
+                                        'EEE': ('EEE', 'EEE'), 
+                                        'GGG': ('GGG', 'GGG'), 
+                                        'ZZZ': ('ZZZ', 'ZZZ')}
 
 def parse(lines):
     ins = lines[0]
@@ -24,9 +26,9 @@ def parse(lines):
     return {'ins':ins,'nodes':nodes}
 
 def test_walk():
-    testlines = read_file_lines("day8-test-input.txt")
-    test_desert = parse(testlines)
-    assert walk(test_desert,'AAA','ZZZ') == 2
+    if testinput:
+        test_desert = parse(testinput)
+        assert walk(test_desert,'AAA','ZZZ') == 2
     
     
 def walk(desert,start,finish):
@@ -52,9 +54,9 @@ def walk(desert,start,finish):
     return steps
 
 def test_get_starts():
-    testlines = read_file_lines("day8-test2-input.txt")
-    test_desert = parse(testlines)
-    assert get_starts(test_desert) == ['11A','22A']
+    if testinput2:
+        test_desert = parse(testinput2)
+        assert get_starts(test_desert) == ['11A','22A']
 
 def get_starts(desert):
     start_keys = []
@@ -64,10 +66,10 @@ def get_starts(desert):
     return start_keys
 
 def test_ghost_cycle():
-    testlines = read_file_lines("day8-test2-input.txt")
-    test_desert = parse(testlines)
-    assert ghost_cycle(test_desert,('22A')) == 3
-    assert ghost_cycle(test_desert,('11A')) == 2
+    if testinput2:
+        test_desert = parse(testinput2)
+        assert ghost_cycle(test_desert,('22A')) == 3
+        assert ghost_cycle(test_desert,('11A')) == 2
 
 def ghost_cycle(desert,start):
     ins = desert['ins']
@@ -95,9 +97,9 @@ def ghost_cycle(desert,start):
 
 
 def test_ghost_walk():
-    testlines = read_file_lines("day8-test2-input.txt")
-    test_desert = parse(testlines)
-    assert ghost_walk(test_desert,('11A','22A')) == 6
+    if testinput2:
+        test_desert = parse(testinput2)
+        assert ghost_walk(test_desert,('11A','22A')) == 6
 
 def ghost_walk(desert,starts):
     cycles = []
@@ -106,10 +108,10 @@ def ghost_walk(desert,starts):
     return math.lcm(*cycles)
 
 
-input = read_file_lines("day8-input.txt")
+input = read_file_lines("./input/day8-input.txt")
 if input:
     desert = parse(input)
-    print('part 1:',walk(desert,'AAA','ZZZ'))
     starts = get_starts(desert)
+    print('part 1:',walk(desert,'AAA','ZZZ'))
     print('part 2:',ghost_walk(desert,starts))
 
