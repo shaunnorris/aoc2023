@@ -128,8 +128,8 @@ def test_solve_part2():
                         ]) == 281
 
 
-
-input_file = 'day1-input.txt'
+input_dir = './input/'
+input_file = input_dir +'day1-input.txt'
 input = read_file_lines(input_file)
 if input:
     part1 = solve_part1(input)

@@ -142,10 +142,11 @@ def find_gear_ratios(mapdata):
             gear_ratio_sum += ratio
     return gear_ratio_sum
 
-day3_data = read_file_lines('day3-input.txt')
-if day3_data:
-    mapdata = map_numbers(day3_data)
-    part1 = find_part_numbers(mapdata)
-    part2 = find_gear_ratios(mapdata)
-    print('part1',part1)
-    print('part2',part2)
+
+input_dir = './input/'
+input_file = input_dir +'day3-input.txt'
+input = read_file_lines(input_file)
+if input:
+    mapdata = map_numbers(input)
+    print('part1',find_part_numbers(mapdata))
+    print('part2',find_gear_ratios(mapdata))

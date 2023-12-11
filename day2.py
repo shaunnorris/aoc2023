@@ -82,10 +82,10 @@ def solve_part2(gamedata):
         total_power += find_power(game)
     return total_power
 
-day2_input = read_file_lines("day2-input.txt")
+input_dir = './input/'
+input_file = input_dir + 'day2-input.txt'
+input = read_file_lines(input_file)
 part1_limits = {'blue': 14, 'green': 13, 'red': 12}
-if day2_input:
-    part1 = solve_part1(day2_input)
-    print('Part 1:', part1)
-    part2 = solve_part2(day2_input)
-    print('part 2:', part2)
+if input:
+    print('Part 1:', solve_part1(input))
+    print('part 2:', solve_part2(input))
