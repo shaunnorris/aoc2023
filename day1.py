@@ -1,4 +1,3 @@
-import pytest
 from aoc2023 import read_file_lines
 
 def test_extract_digits():
