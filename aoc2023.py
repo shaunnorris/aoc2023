@@ -20,3 +20,8 @@ def test_read_file_lines(tmp_path):
     assert result == ["Line 1", "Line 2", "Line 3"]
     badresult = read_file_lines('should_not_exist.txt')
     assert badresult == False
+    
+def transpose(strings):
+    zipped = zip(*strings)
+    transposed = [''.join(group) for group in zipped]
+    return transposed
