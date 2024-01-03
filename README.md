@@ -72,3 +72,9 @@
 - restarted with a substitution approach rather than just naively inserting empty rows
 - calculated new coords based on nubmer of X's found in slice vertically and horizontally
 - some 'off by one' fun but otherwise was nice puzzle
+
+## Day12 
+- brute force on part1 but it runs in a few seconds
+- part2, i always struggle with recursive solvers like this ... had to resort to the forums for help 
+- armed wiht the right approach part2 solves much faster than part1 with some lrucache magic
+- see code for credit for part2

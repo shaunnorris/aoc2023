@@ -25,3 +25,26 @@ def transpose(strings):
     zipped = zip(*strings)
     transposed = [''.join(group) for group in zipped]
     return transposed
+
+
+def test_in_grid():
+    testgrid = ['abc', 'def', 'ghi']
+    assert in_grid(testgrid, (0,0)) == True
+    assert in_grid(testgrid, (1,1)) == True
+    assert in_grid(testgrid, (2,2)) == True
+    assert in_grid(testgrid, (3,3)) == False
+    assert in_grid(testgrid, (0,3)) == False
+    assert in_grid(testgrid, (3,0)) == False
+    assert in_grid(testgrid, (-1,0)) == False
+    assert in_grid(testgrid, (0,-1)) == False
+    
+def in_grid(grid, coord):
+    """Return True if coord is in the grid, False otherwise"""
+    x, y = coord
+    if x < 0 or y < 0:
+        return False
+    try:
+        grid[y][x]
+        return True
+    except IndexError:
+        return False
